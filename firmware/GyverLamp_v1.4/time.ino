@@ -146,7 +146,7 @@ void resolveNtpServerAddress(bool &ntpServerAddressResolved)              // Ñ„Ñ
     return;
   }
 
-  WiFi.hostByName(NTP_ADDRESS, ntpServerIp, RESOLVE_TIMEOUT);
+  WiFi_hostByName(NTP_ADDRESS, ntpServerIp, RESOLVE_TIMEOUT);
   if (ntpServerIp[0] <= 0)
   {
     #ifdef GENERAL_DEBUG

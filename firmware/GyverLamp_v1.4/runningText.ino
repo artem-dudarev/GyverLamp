@@ -142,7 +142,7 @@ void printTime(uint32_t thisTime, bool onDemand, bool ONflag) // периоди�
     digitalWrite(MOSFET_PIN, MOSFET_LEVEL);
     #endif
 
-    while (!fillString(stringTime, letterColor)) { delay(1); ESP.wdtFeed(); }
+    while (!fillString(stringTime, letterColor)) { delay(1); ESP_wdtFeed(); }
 
     #if defined(MOSFET_PIN) && defined(MOSFET_LEVEL)        // установка сигнала в пин, управляющий MOSFET транзистором, соответственно состоянию вкл/выкл матрицы или будильника
     digitalWrite(MOSFET_PIN, ONflag || (dawnFlag && !manualOff) ? MOSFET_LEVEL : !MOSFET_LEVEL);

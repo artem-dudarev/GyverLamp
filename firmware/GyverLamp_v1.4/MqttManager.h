@@ -111,7 +111,7 @@ void MqttManager::setupMqtt(AsyncMqttClient* mqttClient, char* lampInputBuffer, 
 
   char clientIdBuf[sizeof(MqttClientIdPrefix) + 8];
   strcpy_P(clientIdBuf, MqttClientIdPrefix);
-  uint32_t chipId = ESP.getChipId();
+  uint32_t chipId = ESP_getChipId();
   for (uint8_t i = 0; i < 4; ++i)
   {
     byteToHex(&clientIdBuf[i * 2 + sizeof(MqttClientIdPrefix) - 1], chipId >> ((3 - i) * 8));

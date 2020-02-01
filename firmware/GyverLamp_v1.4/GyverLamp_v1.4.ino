@@ -120,9 +120,7 @@
 #include "pgmspace.h"
 #include "Constants.h"
 #include <FastLED.h>
-#include <ESP8266WiFi.h>
-#include <ESP8266WebServer.h>
-#include <WiFiManager.h>
+#include <WiFiManager.h> // https://github.com/ozbotics/WIFIMANAGER-ESP32
 #include "CaptivePortalManager.h"
 #include <WiFiUdp.h>
 #include <EEPROM.h>
@@ -240,7 +238,7 @@ void setup()
 {
   Serial.begin(115200);
   Serial.println();
-  ESP.wdtEnable(WDTO_8S);
+  ESP_wdtEnable(WDTO_8S);
 
 
   // ПИНЫ
@@ -266,7 +264,7 @@ void setup()
   {
     handleTelnetClient();
     delay(100);
-    ESP.wdtFeed();
+    ESP_wdtFeed();
   }
   #endif
 
@@ -284,7 +282,7 @@ void setup()
     }
     buttonEnabled = true;                                   // при сбросе параметров WiFi сразу после старта с зажатой кнопкой, также разблокируется кнопка, если была заблокирована раньше
     EepromManager::SaveButtonEnabled(&buttonEnabled);
-    ESP.wdtFeed();
+    ESP_wdtFeed();
     #endif
   #endif
 
@@ -408,7 +406,7 @@ void setup()
     LOG.print(F("IP адрес: "));
     LOG.println(WiFi.localIP());
   }
-  ESP.wdtFeed();
+  ESP_wdtFeed();
 
   LOG.printf_P(PSTR("Порт UDP сервера: %u\n"), localPort);
   Udp.begin(localPort);
@@ -417,7 +415,7 @@ void setup()
   // NTP
   #ifdef USE_NTP
   timeClient.begin();
-  ESP.wdtFeed();
+  ESP_wdtFeed();
   #endif
 
 
@@ -428,7 +426,7 @@ void setup()
     mqttClient = new AsyncMqttClient();
     MqttManager::setupMqtt(mqttClient, inputBuffer, &sendCurrent);    // создание экземпляров объектов для работы с MQTT, их инициализация и подключение к MQTT брокеру
   }
-  ESP.wdtFeed();
+  ESP_wdtFeed();
   #endif
 
 
@@ -502,5 +500,5 @@ void loop()
   handleTelnetClient();
   #endif
 
-  ESP.wdtFeed();                                            // пнуть собаку
+  ESP_wdtFeed();                                            // пнуть собаку
 }

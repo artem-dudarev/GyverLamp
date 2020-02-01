@@ -14,7 +14,12 @@
 #ifdef OTA
 
 #include <ArduinoOTA.h>
+
+#if defined(ESP32)
+#include <ESPmDNS.h>
+#else
 #include <ESP8266mDNS.h>
+#endif
 
 #define CONFIRMATION_TIMEOUT  (30U)                         // время в сеундах, в течение которого нужно дважды подтвердить старт обновлениЯ по воздуху (иначе сброс в None)
 
@@ -124,7 +129,7 @@ class OtaManager
     void startOtaUpdate()
     {
       char espHostName[65];
-      sprintf_P(espHostName, PSTR("%s-%u"), AP_NAME, ESP.getChipId());
+      sprintf_P(espHostName, PSTR("%s-%u"), AP_NAME, ESP_getChipId());
       ArduinoOTA.setPort(ESP_OTA_PORT);
       ArduinoOTA.setHostname(espHostName);
       ArduinoOTA.setPassword(AP_PASS);
